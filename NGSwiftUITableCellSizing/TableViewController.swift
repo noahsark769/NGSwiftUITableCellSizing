@@ -23,25 +23,34 @@ final class HostingCell<Content: View>: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         self.contentView.addSubview(hostingView)
-        hostingView.translatesAutoresizingMaskIntoConstraints = false
-        hostingView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
-        hostingView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
-        hostingView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-        hostingView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-
-        hostingView.setContentHuggingPriority(.required, for: .vertical)
-        hostingView.setContentHuggingPriority(.required, for: .horizontal)
-        hostingView.setContentCompressionResistancePriority(.required, for: .vertical)
-        hostingView.setContentCompressionResistancePriority(.required, for: .horizontal)
+//        hostingView.translatesAutoresizingMaskIntoConstraints = false
+//        hostingView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
+//        hostingView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
+//        hostingView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
+//        hostingView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+//
+//        hostingView.setContentHuggingPriority(.required, for: .vertical)
+//        hostingView.setContentHuggingPriority(.required, for: .horizontal)
+//        hostingView.setContentCompressionResistancePriority(.required, for: .vertical)
+//        hostingView.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        return hostingView.rootViewHostingController.sizeThatFits(in: size)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        hostingView.frame.size = self.sizeThatFits(bounds.size)
+    }
 }
 
 open class HostingView<Content: View>: UIView {
-    private let rootViewHostingController: UIHostingController<Content>
+    let rootViewHostingController: UIHostingController<Content>
 
     public var rootView: Content {
         get {
