@@ -10,9 +10,10 @@ import UIKit
 import SwiftUI
 
 final class HostingCell<Content: View>: UITableViewCell {
-    private let hostingView: HostingView<Content?> = HostingView(rootView: nil)
+    var parentController: UIViewController?
+    private lazy var hostingView: HostingView<Content?> = HostingView(rootView: nil)
 
-    var rootView: Content? {
+    private var rootView: Content? {
         get { hostingView.rootView }
         set {
             hostingView.rootView = newValue
@@ -47,9 +48,21 @@ final class HostingCell<Content: View>: UITableViewCell {
         super.layoutSubviews()
         hostingView.frame.size = self.sizeThatFits(bounds.size)
     }
+
+    public func set(rootView: Content, parentController: UIViewController) {
+        self.rootView = rootView
+        self.parentController = parentController
+        self.hostingView.parentController = parentController
+    }
 }
 
 open class HostingView<Content: View>: UIView {
+    var parentController: UIViewController? {
+        didSet {
+            self.setupController()
+        }
+    }
+
     let rootViewHostingController: UIHostingController<Content>
 
     public var rootView: Content {
@@ -64,7 +77,6 @@ open class HostingView<Content: View>: UIView {
         self.rootViewHostingController = UIHostingController(rootView: rootView)
 
         super.init(frame: .zero)
-        self.setupController()
     }
 
     public required init?(coder: NSCoder) {
@@ -72,7 +84,10 @@ open class HostingView<Content: View>: UIView {
     }
 
     private func setupController() {
+        guard let parentController = self.parentController, rootViewHostingController.parent != rootViewHostingController else { return }
         rootViewHostingController.view.backgroundColor = .clear
+
+        parentController.addChild(rootViewHostingController)
         addSubview(rootViewHostingController.view)
 
         rootViewHostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -85,6 +100,8 @@ open class HostingView<Content: View>: UIView {
         rootViewHostingController.view.setContentHuggingPriority(.required, for: .horizontal)
         rootViewHostingController.view.setContentCompressionResistancePriority(.required, for: .vertical)
         rootViewHostingController.view.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+        rootViewHostingController.didMove(toParent: self.parentController)
     }
 }
 
@@ -111,7 +128,7 @@ final class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HostingCell<CellView>", for: indexPath) as! HostingCell<CellView>
-        cell.rootView = CellView(content: "Title Title Title ", numberOfRepetitions: .random(in: 1..<20))
+        cell.set(rootView: CellView(content: "Title Title Title ", numberOfRepetitions: indexPath.row % 20 + 1), parentController: self)
         return cell
     }
 }
