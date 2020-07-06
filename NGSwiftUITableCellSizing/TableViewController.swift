@@ -31,6 +31,8 @@ final class HostingCell<Content: View>: UITableViewCell {
 
         hostingView.setContentHuggingPriority(.required, for: .vertical)
         hostingView.setContentHuggingPriority(.required, for: .horizontal)
+        hostingView.setContentCompressionResistancePriority(.required, for: .vertical)
+        hostingView.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -72,6 +74,8 @@ open class HostingView<Content: View>: UIView {
 
         rootViewHostingController.view.setContentHuggingPriority(.required, for: .vertical)
         rootViewHostingController.view.setContentHuggingPriority(.required, for: .horizontal)
+        rootViewHostingController.view.setContentCompressionResistancePriority(.required, for: .vertical)
+        rootViewHostingController.view.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 }
 
@@ -80,6 +84,8 @@ final class TableViewController: UITableViewController {
         super.init(style: style)
         self.tableView.register(HostingCell<CellView>.self, forCellReuseIdentifier: "HostingCell<CellView>")
         self.tableView.separatorStyle = .none
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = 60
     }
 
     required init?(coder: NSCoder) {
