@@ -14,6 +14,7 @@
 		A15E767E24B365BE00FCDCCB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A15E767D24B365BE00FCDCCB /* Preview Assets.xcassets */; };
 		A15E768124B365BE00FCDCCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A15E767F24B365BE00FCDCCB /* LaunchScreen.storyboard */; };
 		A15E768924B366B100FCDCCB /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15E768824B366B100FCDCCB /* TableViewController.swift */; };
+		A15E768B24B4BDF700FCDCCB /* HostingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15E768A24B4BDF700FCDCCB /* HostingCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		A15E768024B365BE00FCDCCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A15E768224B365BE00FCDCCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A15E768824B366B100FCDCCB /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		A15E768A24B4BDF700FCDCCB /* HostingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				A15E768224B365BE00FCDCCB /* Info.plist */,
 				A15E767C24B365BE00FCDCCB /* Preview Content */,
 				A15E768824B366B100FCDCCB /* TableViewController.swift */,
+				A15E768A24B4BDF700FCDCCB /* HostingCell.swift */,
 			);
 			path = NGSwiftUITableCellSizing;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A15E768B24B4BDF700FCDCCB /* HostingCell.swift in Sources */,
 				A15E767524B365BC00FCDCCB /* AppDelegate.swift in Sources */,
 				A15E767724B365BC00FCDCCB /* SceneDelegate.swift in Sources */,
 				A15E767924B365BC00FCDCCB /* CellView.swift in Sources */,
