@@ -14,8 +14,8 @@ final class TableViewController: UITableViewController {
         self.tableView.register(HostingCell<CellView>.self, forCellReuseIdentifier: "HostingCell<CellView>")
         self.tableView.register(HostingCell<ComplicatedCellView>.self, forCellReuseIdentifier: "HostingCell<ComplicatedCellView>")
         self.tableView.separatorStyle = .none
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.estimatedRowHeight = 60
+//        self.tableView.rowHeight = UITableView.automaticDimension
+//        self.tableView.estimatedRowHeight = 60
     }
 
     required init?(coder: NSCoder) {
