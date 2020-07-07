@@ -58,18 +58,6 @@ final class HostingCell<Content: View>: UITableViewCell {
         get { hostingView.rootView }
         set {
             hostingView.rootView = newValue
-//            self.layoutIfNeeded()
-//            hostingView.invalidateIntrinsicContentSize()
-//            self.contentView.invalidateIntrinsicContentSize()
-//            self.invalidateIntrinsicContentSize()
-//
-//            hostingView.setNeedsUpdateConstraints()
-//            self.contentView.setNeedsUpdateConstraints()
-//            self.setNeedsUpdateConstraints()
-//
-//            hostingView.setNeedsLayout()
-//            self.contentView.setNeedsLayout()
-//            self.setNeedsLayout()
         }
     }
 
@@ -84,45 +72,16 @@ final class HostingCell<Content: View>: UITableViewCell {
         let bottom = hostingView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
         bottom.priority = .defaultHigh
         bottom.isActive = true
-
-//        hostingView.setContentHuggingPriority(.required, for: .vertical)
-//        hostingView.setContentHuggingPriority(.required, for: .horizontal)
-//
-//        self.contentView.setContentHuggingPriority(.required, for: .vertical)
-//        self.contentView.setContentHuggingPriority(.required, for: .horizontal)
-//        hostingView.setContentCompressionResistancePriority(.required, for: .vertical)
-//        hostingView.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-//    override func sizeThatFits(_ size: CGSize) -> CGSize {
-//        return hostingView.rootViewHostingController.sizeThatFits(in: size)
-//    }
-//
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        hostingView.frame.size = self.sizeThatFits(bounds.size)
-//    }
-
     public func set(rootView: Content, parentController: UIViewController) {
         self.rootView = rootView
         self.parentController = parentController
         self.hostingView.parentController = parentController
-
-//        hostingView.invalidateIntrinsicContentSize()
-//        self.contentView.invalidateIntrinsicContentSize()
-//        self.invalidateIntrinsicContentSize()
-//
-//        hostingView.setNeedsUpdateConstraints()
-//        self.contentView.setNeedsUpdateConstraints()
-//        self.setNeedsUpdateConstraints()
-//
-//        hostingView.setNeedsLayout()
-//        self.contentView.setNeedsLayout()
-//        self.setNeedsLayout()
     }
 }
 
@@ -131,7 +90,6 @@ class HostingView<Content: View>: UIView {
         didSet {
             self.setupController()
             self.rootViewHostingController.view.invalidateIntrinsicContentSize()
-            self.invalidateIntrinsicContentSize()
         }
     }
 
@@ -142,9 +100,6 @@ class HostingView<Content: View>: UIView {
             return rootViewHostingController.rootView
         } set {
             rootViewHostingController.rootView = newValue
-//            self.setupController()
-//            self.invalidateIntrinsicContentSize()
-//            self.setNeedsLayout()
         }
     }
 
@@ -157,22 +112,6 @@ class HostingView<Content: View>: UIView {
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-//    override func sizeThatFits(_ size: CGSize) -> CGSize {
-//        return rootViewHostingController.sizeThatFits(in: size)
-//    }
-//
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        rootViewHostingController.view.frame.size = self.sizeThatFits(bounds.size)
-//    }
-
-//    override var intrinsicContentSize: CGSize {
-//        let size = self.rootViewHostingController.sizeThatFits(in: self.frame)
-////        let size = self.rootViewHostingController.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-//        print("Returning HostingView intrinsicContentSize \(size) from frame \(self.frame)")
-//        return size
-//    }
 
     private func setupController() {
         guard let parentController = self.parentController, rootViewHostingController.parent != rootViewHostingController else { return }
@@ -187,13 +126,6 @@ class HostingView<Content: View>: UIView {
         rootViewHostingController.view.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         rootViewHostingController.view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
 
-//        rootViewHostingController.view.setContentHuggingPriority(.required, for: .vertical)
-//        rootViewHostingController.view.setContentHuggingPriority(.required, for: .horizontal)
-//        rootViewHostingController.view.setContentCompressionResistancePriority(.required, for: .vertical)
-//        rootViewHostingController.view.setContentCompressionResistancePriority(.required, for: .horizontal)
-
         rootViewHostingController.didMove(toParent: self.parentController)
-//        self.invalidateIntrinsicContentSize()
-//        self.setNeedsLayout()
     }
 }
