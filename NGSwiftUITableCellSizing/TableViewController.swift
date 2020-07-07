@@ -14,8 +14,6 @@ final class TableViewController: UITableViewController {
         self.tableView.register(HostingCell<CellView>.self, forCellReuseIdentifier: "HostingCell<CellView>")
         self.tableView.register(HostingCell<ComplicatedCellView>.self, forCellReuseIdentifier: "HostingCell<ComplicatedCellView>")
         self.tableView.separatorStyle = .none
-//        self.tableView.rowHeight = UITableView.automaticDimension
-//        self.tableView.estimatedRowHeight = 60
     }
 
     required init?(coder: NSCoder) {
@@ -40,9 +38,5 @@ final class TableViewController: UITableViewController {
             cell.set(rootView: CellView(content: "Title Title Title ", numberOfRepetitions: indexPath.row % 20 + 1), parentController: self)
             return cell
         }
-    }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected \(indexPath)")
     }
 }
