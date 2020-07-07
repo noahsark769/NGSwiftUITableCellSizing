@@ -52,6 +52,7 @@ final class TableViewController: UITableViewController {
     override init(style: UITableView.Style) {
         super.init(style: style)
         self.tableView.register(HostingCell<CellView>.self, forCellReuseIdentifier: "HostingCell<CellView>")
+        self.tableView.register(HostingCell<ComplicatedCellView>.self, forCellReuseIdentifier: "HostingCell<ComplicatedCellView>")
         self.tableView.separatorStyle = .none
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 60
@@ -70,9 +71,15 @@ final class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HostingCell<CellView>", for: indexPath) as! HostingCell<CellView>
-        cell.set(rootView: CellView(content: "Title Title Title ", numberOfRepetitions: indexPath.row % 20 + 1), parentController: self)
-        return cell
+        if indexPath.row % 6 == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HostingCell<ComplicatedCellView>", for: indexPath) as! HostingCell<ComplicatedCellView>
+            cell.set(rootView: ComplicatedCellView(value: indexPath.row), parentController: self)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HostingCell<CellView>", for: indexPath) as! HostingCell<CellView>
+            cell.set(rootView: CellView(content: "Title Title Title ", numberOfRepetitions: indexPath.row % 20 + 1), parentController: self)
+            return cell
+        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

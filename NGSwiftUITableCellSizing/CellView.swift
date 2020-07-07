@@ -33,3 +33,25 @@ struct CellView: View {
         .fixedSize(horizontal: false, vertical: true)
     }
 }
+
+struct ComplicatedCellView: View {
+    let value: Int
+
+    var body: some View {
+        HStack {
+            VStack {
+                Rectangle().fill(Color.red).frame(width: 50, height: 50)
+                Rectangle().fill(Color.green).frame(width: 50, height: 50)
+                Spacer()
+            }.frame(minHeight: 150)
+            Rectangle().fill(Color.blue).frame(minWidth: 100)
+            VStack {
+                Text(String(repeating: "Value ", count: value % 40) + "\(value % 40)")
+                    .lineLimit(nil)
+                    .layoutPriority(1)
+                Rectangle().fill(Color.red).frame(width: 50, height: 50)
+                Spacer()
+            }
+        }.border(Color.yellow).padding().border(Color.purple).fixedSize(horizontal: false, vertical: true)
+    }
+}
