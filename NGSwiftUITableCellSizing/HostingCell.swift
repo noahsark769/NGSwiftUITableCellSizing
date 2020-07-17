@@ -44,7 +44,7 @@ import SwiftUI
 // Constraints method
 
 final class HostingCell<Content: View>: UITableViewCell {
-    private lazy var hostingController: UIHostingController<Content?> = UIHostingController(rootView: nil)
+    private let hostingController = UIHostingController<Content?>(rootView: nil)
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

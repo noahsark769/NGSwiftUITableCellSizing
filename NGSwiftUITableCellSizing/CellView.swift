@@ -49,7 +49,7 @@ struct ComplicatedCellView: View {
                     .frame(minWidth: 100)
                 VStack {
                     Text(String(repeating: "Value ", count: value % 40) + "\(value % 40)")
-                        .lineLimit(nil)
+                        .lineLimit(nil) 
                     Rectangle().fill(Color.red).frame(width: 50, height: 50)
                     Spacer()
                 }
