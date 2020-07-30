@@ -20,6 +20,14 @@ final class TableViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let search = UISearchController(searchResultsController: nil)
+        search.obscuresBackgroundDuringPresentation = false
+        search.searchBar.placeholder = "Type something here to search"
+        navigationItem.searchController = search
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
