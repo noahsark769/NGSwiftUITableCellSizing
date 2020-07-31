@@ -41,23 +41,66 @@ import SwiftUI
 //    }
 //}
 
+final class WrapperController<Content: View>: UIViewController {
+    let wrappedController: UIHostingController<Content>
+
+    init(wrappedController: UIHostingController<Content>) {
+        self.wrappedController = wrappedController
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        wrappedController.willMove(toParent: self)
+        self.addChild(wrappedController)
+        self.view.addSubview(wrappedController.view)
+
+        wrappedController.view.translatesAutoresizingMaskIntoConstraints = false
+        wrappedController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        wrappedController.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        wrappedController.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        wrappedController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+    }
+}
+
 // Constraints method
 
 final class HostingCell<Content: View>: UITableViewCell {
-    private let hostingController = UIHostingController<Content?>(rootView: nil)
+    private let hostingController = WrapperController<Content?>(wrappedController: UIHostingController<Content?>(rootView: nil))
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        hostingController.view.backgroundColor = .clear
+        hostingController.wrappedController.view.backgroundColor = .clear
+        self.contentView.insetsLayoutMarginsFromSafeArea = false
+        self.insetsLayoutMarginsFromSafeArea = false
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func safeAreaInsetsDidChange() {
+        print("SAFE AREA CHANGING!!")
+    }
+
+    override var safeAreaInsets: UIEdgeInsets {
+        return .zero
+    }
+
+    override var safeAreaLayoutGuide: UILayoutGuide {
+        return UILayoutGuide()
+    }
+
     func set(rootView: Content, parentController: UIViewController) {
-        self.hostingController.rootView = rootView
-        self.hostingController.view.invalidateIntrinsicContentSize()
+        self.hostingController.wrappedController.rootView = rootView
+//        self.hostingController.view.insetsLayoutMarginsFromSafeArea = false
+        self.hostingController.wrappedController.view.invalidateIntrinsicContentSize()
+//        self.hostingController.view.setNeedsLayout()
+//        self.hostingController.view.setNeedsUpdateConstraints()
 
         let requiresControllerMove = hostingController.parent != parentController
         if requiresControllerMove {
