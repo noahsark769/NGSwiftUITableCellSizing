@@ -66,15 +66,21 @@ final class HostingCell<Content: View>: UITableViewCell {
 
         if !self.contentView.subviews.contains(hostingController.view) {
             self.contentView.addSubview(hostingController.view)
-            hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-            hostingController.view.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
-            hostingController.view.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
-            hostingController.view.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-            hostingController.view.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+            hostingController.view.constraintsEqualTo(contentView)
         }
 
         if requiresControllerMove {
             hostingController.didMove(toParent: parentController)
         }
+    }
+}
+
+extension UIView {
+    func constraintsEqualTo(_ view: UIView) {
+        translatesAutoresizingMaskIntoConstraints = false
+        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }

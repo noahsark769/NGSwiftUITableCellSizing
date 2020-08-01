@@ -12,7 +12,7 @@ import SwiftUI
 final class TableViewController: UITableViewController {
     override init(style: UITableView.Style) {
         super.init(style: style)
-        self.tableView.register(HostingCell<Text>.self, forCellReuseIdentifier: "HostingCell<Text>")
+        self.tableView.register(HostingCell<ExampleView>.self, forCellReuseIdentifier: "HostingCell<ExampleView>")
         self.tableView.separatorStyle = .none
     }
 
@@ -33,8 +33,35 @@ final class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HostingCell<Text>", for: indexPath) as! HostingCell<Text>
-        cell.set(rootView: Text("Hi"), parentController: self)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HostingCell<ExampleView>", for: indexPath) as! HostingCell<ExampleView>
+        cell.set(rootView: ExampleView(), parentController: self)
         return cell
+    }
+
+    override func viewSafeAreaInsetsDidChange() {
+        print("changed")
+    }
+}
+
+struct ExampleView: View {
+    var body: some View {
+
+        Text("Some Text")
+            .font(.title)
+            .background(
+                GeometryReader { proxy in
+                    let _ = inspect(proxy: proxy)
+                    Color.clear
+                }
+            )
+            .ignoresSafeArea(.keyboard)
+    }
+
+
+    func inspect(proxy: GeometryProxy) -> Void {
+        if proxy.safeAreaInsets.bottom != 0 {
+            dump(proxy.safeAreaInsets.bottom)
+            // dump(proxy.size)
+        }
     }
 }
